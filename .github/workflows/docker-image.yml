@@ -1,0 +1,28 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Client Docker image for test
+      run: docker build --tag vijayrao/multidockerimage -f ./client/Dockerfile.dev ./client
+    - name: Run Client test
+      run: docker run  -e CI=true vijayrao/multipledockertesti npm run test -- --coverage
+    - name: build client image for prod
+      run: docker build -t vijayrao/multi-client ./client
+    - name: build nginx image for prod
+      run: docker build -t vijayrao/multi-nginx ./nginx
+    - name: build server image for prod
+      run: docker build -t vijayrao/multi-server ./server
+    - name: build worker image for prod
+      run: docker build -t vijayrao/multi-worker ./worker
