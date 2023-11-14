@@ -17,7 +17,7 @@ jobs:
     - name: Build the Client Docker image for test
       run: docker build --tag vijayrao/multidockerimage -f ./client/Dockerfile.dev ./client
     - name: Run Client test
-      run: docker run  -e CI=true vijayrao/multipledockertesti npm run test -- --coverage
+      run: docker run  -e CI=true vijayrao/multidockerimage npm run test -- --coverage
     - name: build client image for prod
       run: docker build -t vijayrao/multi-client ./client
     - name: build nginx image for prod
