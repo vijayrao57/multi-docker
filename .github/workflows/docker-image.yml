@@ -21,7 +21,7 @@ jobs:
     - name: build client image for prod
       run: docker build -t vijayrao/multi-client ./client
     - name: build nginx image for prod
-      run: docker build -t vijayrao/multi-nginx ./nginx
+      run: docker build -t vijayrao/multi-nginx -f ./nginx/Dockerfile.dev ./nginx
     - name: build server image for prod
       run: docker build -t vijayrao/multi-server ./server
     - name: build worker image for prod
